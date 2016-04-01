@@ -46,4 +46,79 @@ x
 #取出2个item中的第一列
 lapply(x, function(elt) elt[,1])
 
+head(flags)
+#返回flags每一列的class，返回list格式
+cls_list <- lapply(flags, class)
+as.character(cls_list)
+#返回向量
+cls_vect <- sapply(flags, class)
+sum(flags$orange)
+#取出关于颜色的列
+flag_colors <- flags[, 11:17]
+#颜色里面有这种颜色就是1没有就是0，求和得到每种颜色国家数量
+lapply(flag_colors, sum)
+sapply(flag_colors, sum)
+#占比
+sapply(flag_colors, mean)
 
+#取出形状列，里面的数据是每种形状在某国旗中出现的次数
+flag_shapes <- flags[, 19:23]
+#求出每种形状在不同国旗中出现次数的范围
+lshape <- lapply(flag_shapes, range)
+mshape <- sapply(flag_shapes, range)
+class(lshape)
+class(mshape)
+dim(mshape)
+#合并重复内容
+unique(c(3, 4, 5, 5, 5, 6, 6))
+#把flags里面各个name项目下的内容取出重复，长短不一返回list
+unique_vals <- lapply(flags, unique)
+unique_vals <- sapply(flags, unique)
+#求出去重以后数据里面各个项目的长度
+sapply(unique_vals, length)
+
+#出错
+vapply(flags, unique, numeric(1))
+#限定返回的是长度1的字符串向量
+cflags<-vapply(flags, class, character(1))
+
+#生成随机数
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+#生成3个level，分别重复10次
+f <- gl(3, 10)
+#把x按照f的标注的分类分别求mean
+tapply(x, f, mean)
+tapply(x, f, mean, simplify = FALSE)
+#把x按照f的标注的分类分别求range
+tapply(x, f, range)
+
+table(flags$landmass)
+table(flags$animate)
+tapply(flags$animate, flags$landmass, mean)
+
+#把x按照f因子分离，返回list
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+f <- gl(3, 10)
+split(x, f)
+#求分离后项目的均值
+lapply(split(x, f), mean)
+
+#eg
+library(datasets)
+head(airquality)
+#按照month分组
+s <- split(airquality, airquality$Month)
+#对分离后的项目分别求要求项目的列均值
+lapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")]))
+sapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")]))
+sapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")], na.rm = TRUE))
+
+#2种因子分类，求2个因子的交叉项返回1.1，1.2等
+x <- rnorm(10)
+f1 <- gl(2, 5)
+f2 <- gl(5, 2)
+interaction(f1, f2)
+#按2个因子分类并返回数据信息
+str(split(x, list(f1, f2)))
+#删除空行
+str(split(x, list(f1, f2), drop = TRUE))
