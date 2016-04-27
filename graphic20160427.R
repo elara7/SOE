@@ -1,0 +1,25 @@
+data=library(datasets)
+windows(7,7)
+attach(airquality)
+a5 <- subset(airquality,Month==5)
+ao <- subset(airquality,Month!=5)
+plot(ao$Wind, ao$Ozone,xlab="Wind", ylab="Ozone",col="red",
+     xlim=c(0, 23), ylim=c(0, 170))
+points(a5$Wind, a5$Ozone,col="blue")
+title("15420151152805王泽贤")
+abline(lm(Ozone ~ Wind),lwd=2)
+legend("topright",c("May","Other Months"),pch = c(21,21),col=c("blue","red"))
+detach(airquality)
+
+
+
+windows(7,7)
+attach(airquality)
+par(fig=c(0,1/3,0,0.9))
+plot(Wind, Ozone,xlab="Wind", ylab="Ozone",xlim=c(0, 23), ylim=c(0, 170),main = "Ozone and Wind")
+par(fig=c(1/3,2/3,0,0.9),new=TRUE)
+plot(Solar.R, Ozone,xlab="Solar.R", ylab="Ozone",main = "Ozone and Solar Radiation")
+par(fig=c(2/3,1,0,0.9),new=TRUE)
+plot(Temp, Ozone,xlab="Temp", ylab="Ozone",main = "Ozone and Temperature")
+mtext("15420151152805王泽贤", side = 3, outer = TRUE, line = -3)
+detach(airquality)
