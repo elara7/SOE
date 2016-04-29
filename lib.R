@@ -16,7 +16,16 @@ rnorm(5)
 然后输出-输出格式-pdf Xetex
 然后导言区-
 \usepackage{xeCJK}
-\setCJkmainfont{simSun}
+\setCJKmainfont{simSun}
 确定提示fail不管
 
 文档类-bima什么鬼的
+APA APA6论文
+BEAMER 展示用
+CETX 中文模版
+elsarticle 论文
+frletter 信件
+IEEE 论文
+kluwer论文
+post 发表
+revetx 论文
