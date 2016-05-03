@@ -7,12 +7,11 @@ output:
     colortheme: dolphin
     fig_caption: yes
     fonttheme: structurebold
-    highlight: default
     includes:
       in_header: header.tex
     pandoc_args: --latex-engine=xelatex
     slide_level: 2
-    theme: AnnArbor
+    theme: Rochester
   ioslides_presentation:
     highlight: default
 ---
