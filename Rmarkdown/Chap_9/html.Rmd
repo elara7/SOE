@@ -4,6 +4,7 @@ author: "Elara"
 date: "2016年5月4日"
 output: 
   html_document: 
+    number_sections: yes
     theme: cerulean
 ---
 ```{r setup, include=FALSE}
@@ -159,8 +160,18 @@ influence.measures(lm(Y3~X, data=Anscombe))
 
 
 ## 最大似然估计
+The following function is called a likelihood function, denoted by LF($\beta_1$; $\beta_2$; $\sigma^{2}$)
+$$LF(\beta_1,\beta_2,\sigma^{2})=f(Y_1,Y_2,\dots,Y_n|\beta_1+\beta_2X_i,\sigma^{2})=\frac{1}{\sigma^{n}(\sqrt{2\pi})^{n}}exp(\frac{1}{2}\sum \frac{(Y_i-\beta_1-\beta_2X_i)^{2}}{\sigma^{2}})$$      
+where $\beta_1$; $\beta_2$; $\sigma^{2}$ are not known. The method of maximum likelihood, as the name indicates, consists in estimating the unknown parameters in such a manner that the probability of observing the given Y’s is as high (or maximum) as possible. Therefore, we have to find the maximum of the function 6. For differentiation it is easier to express 6 in the log term as follows:   
+$$
+ln LF = -nln\sigma -\frac{n}{2}ln(2\pi)-\frac{1}{2}\sum \frac{(Y_i-\beta_1-\beta_2X_i)^{2}}{\sigma^{2}} \\
+= -\frac{n}{2}ln\sigma^{2} -\frac{n}{2}ln(2\pi)-\frac{1}{2}\sum \frac{(Y_i-\beta_1-\beta_2X_i)^{2}}{\sigma^{2}}
+$$
+Differentiating 7 partially with respect to $\beta_1$; $\beta_2$, and $\sigma^{2}$, we can obtain the ML estimators.         
 
-![m](C:\Users\44180\Documents\sourcetree\elara7\SOE\Rmarkdown\4.PNG)
+```
+install.packages(maxLik)
+```     
 
 ```{r}
 library("maxLik")
