@@ -2,29 +2,32 @@
 title: "Regression"
 author: "Elara"
 date: "2016年5月4日"
-output: 
-  html_document: 
+output:
+  pdf_document: 
+      latex_engine: xelatex
+      includes:
+            in_header: header.tex
+  html_document:
     number_sections: yes
     theme: cerulean
+  word_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# 线性回归      
+
+# 线性回归       
 
 ## 线性模型
-$$
-\begin{equation}
-Y_i=e^{\beta_1+\beta_2X_i+\epsilon_i}   \\
-Y_i=\frac{1}{e^{\beta_1+\beta_2X_i+\epsilon_i}}   \\
-Y_i=\beta_1+(0.75-\beta_1)e^{-\beta_2(X_i-2)}+\epsilon_i   \\    
-Y_i=\beta_1+\beta_2^{3}X_i+\epsilon_i   \\    
-Y_i=\beta_1+\beta_2(\frac{1}{X_i})+\epsilon_i   \\
-\end{equation}
-$$
+$$Y_i=e^{\beta_1+\beta_2X_i+\epsilon_i}$$      
+$$Y_i=\frac{1}{e^{\beta_1+\beta_2X_i+\epsilon_i}}$$    
+$$Y_i=\beta_1+(0.75-\beta_1)e^{-\beta_2(X_i-2)}+\epsilon_i$$       
+$$Y_i=\beta_1+\beta_2^{3}X_i+\epsilon_i$$         
+$$Y_i=\beta_1+\beta_2(\frac{1}{X_i})+\epsilon_i$$   
+
 
 1. 125是线性模型 
-2. 没有截距项的时候R2不能用。    
+2. 没有截距项的时候R2不能用。此时OLS的FOC没有$\beta_0$相关，得不到残差和=0    
 3. 无法把方差分解成可解释和不可解释部分。        
 4. 即使截距项不显著也不能去掉。去掉的话一定过原点。      
 5. R2受到模型变量数目影响。要用adj.R2    
@@ -161,7 +164,9 @@ influence.measures(lm(Y3~X, data=Anscombe))
 
 ## 最大似然估计
 The following function is called a likelihood function, denoted by LF($\beta_1$; $\beta_2$; $\sigma^{2}$)
-$$LF(\beta_1,\beta_2,\sigma^{2})=f(Y_1,Y_2,\dots,Y_n|\beta_1+\beta_2X_i,\sigma^{2})=\frac{1}{\sigma^{n}(\sqrt{2\pi})^{n}}exp(\frac{1}{2}\sum \frac{(Y_i-\beta_1-\beta_2X_i)^{2}}{\sigma^{2}})$$      
+$$
+LF(\beta_1,\beta_2,\sigma^{2})=f(Y_1,Y_2,\dots,Y_n|\beta_1+\beta_2X_i,\sigma^{2})=\frac{1}{\sigma^{n}(\sqrt{2\pi})^{n}}exp(\frac{1}{2}\sum \frac{(Y_i-\beta_1-\beta_2X_i)^{2}}{\sigma^{2}})
+$$      
 where $\beta_1$; $\beta_2$; $\sigma^{2}$ are not known. The method of maximum likelihood, as the name indicates, consists in estimating the unknown parameters in such a manner that the probability of observing the given Y’s is as high (or maximum) as possible. Therefore, we have to find the maximum of the function 6. For differentiation it is easier to express 6 in the log term as follows:   
 $$
 ln LF = -nln\sigma -\frac{n}{2}ln(2\pi)-\frac{1}{2}\sum \frac{(Y_i-\beta_1-\beta_2X_i)^{2}}{\sigma^{2}} \\
