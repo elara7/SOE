@@ -9,26 +9,24 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# 线性回归      
 
 ## 线性模型
-![m](C:\Users\44180\Documents\sourcetree\elara7\SOE\Rmarkdown\1.PNG)
+$$
+\begin{equation}
+Y_i=e^{\beta_1+\beta_2X_i+\epsilon_i}   \\
+Y_i=\frac{1}{e^{\beta_1+\beta_2X_i+\epsilon_i}}   \\
+Y_i=\beta_1+(0.75-\beta_1)e^{-\beta_2(X_i-2)}+\epsilon_i   \\    
+Y_i=\beta_1+\beta_2^{3}X_i+\epsilon_i   \\    
+Y_i=\beta_1+\beta_2(\frac{1}{X_i})+\epsilon_i   \\
+\end{equation}
+$$
 
-125是线性模型
-
-
-没有截距项的时候R2不能用。
-
-
-无法把方差分解成可解释和不可解释部分。
-
-
-即使截距项不显著也不能去掉。去掉的话一定过原点。
-
-
-R2受到模型变量数目影响。
-
-
-要用adj.R2
+1. 125是线性模型 
+2. 没有截距项的时候R2不能用。    
+3. 无法把方差分解成可解释和不可解释部分。        
+4. 即使截距项不显著也不能去掉。去掉的话一定过原点。      
+5. R2受到模型变量数目影响。要用adj.R2    
 
 ##LM线性模型估计OLS
 ```{r }
@@ -118,7 +116,7 @@ detach(Anscombe)
 
 1.diffits指标
 
-![m](C:\Users\44180\Documents\sourcetree\elara7\SOE\Rmarkdown\2.PNG)
+$$DFFITS=\frac{\hat{y_i}-\hat{y_{i(i)}}}{s_(i)\sqrt{h_{ii}}}\sqrt{h_{ii}/(1-h_{ii})}$$
 
 h是帽子矩阵，y尖=hy
 
@@ -134,7 +132,8 @@ detach(Anscombe)
 
 2.Cook's distance
 
-![m](C:\Users\44180\Documents\sourcetree\elara7\SOE\Rmarkdown\3.PNG)
+$$D_i=\frac{(\hat{\beta}-\hat{\beta}^{(-i)})^{T}(X^{T}X)(\hat{\beta}-\hat{\beta}^{(-i)})}{(1+p)s^{2}}$$
+
 
 ```{r}
 Fit<-lm(Y3~X, data=Anscombe)
@@ -164,8 +163,8 @@ influence.measures(lm(Y3~X, data=Anscombe))
 ![m](C:\Users\44180\Documents\sourcetree\elara7\SOE\Rmarkdown\4.PNG)
 
 ```{r}
-library(maxLik)
-indfood<-read.csv(file="C:\\Users\\44180\\Documents\\work&study\\soe\\statistics\\c9\\Chap_9\\Indfood.csv")
+library("maxLik")
+indfood<-read.csv(file="C:\\Users\\44180\\Documents\\sourcetree\\elara7\\soe\\Rmarkdown\\Chap_9\\Indfood.csv")
 #抽取数据
 foodexp<-indfood[,1]
 totalexp<-indfood[,2]
@@ -216,9 +215,15 @@ plot(fit2)
 ```
 
 ## 系数之间相关影响实验
-
-计算x2对x1系数的影响。yi是对x1和x2回归
-![m](C:\Users\44180\Documents\sourcetree\elara7\SOE\Rmarkdown\5.PNG)
+In order to explain the meaning of coefficients ,we have the following step.    
+Regression model:       
+$$y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+u_i$$ 
+Step 1: 
+$$w_i=y_i-\hat{\alpha}_0-\hat{\alpha}_1x_{i2}$$ 
+Step 2: 
+$$v_i=x_{i1}-\hat{b}_0-\hat{b}_1x_{i2}$$        
+Step 3: 
+$$\bar{\beta}_1=\frac{\sum v_iw_i}{\sum v_i^{2}}$$      
 
 ```{r}
 mtcar <- as.data.frame(mtcars[,c("mpg", "cyl", "disp", "hp", "wt")])
